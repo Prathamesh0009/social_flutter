@@ -1,9 +1,11 @@
-//app_drawer
-
 import 'package:flutter/material.dart';
 import 'package:social_app/constants/styles.dart';
+import 'package:social_app/screens/my_account_screen.dart';
+import 'package:social_app/services/profile_service.dart'; // Import ProfileService
 
 class SideDrawer extends StatelessWidget {
+  final ProfileService _profileService = ProfileService(); // Initialize the ProfileService
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -88,19 +90,59 @@ class SideDrawer extends StatelessWidget {
     );
   }
 
-  void selectedItem(BuildContext context, int index) {
+  void selectedItem(BuildContext context, int index) async {
+    debugPrint("selectedItem called with index: $index");
+    
     Navigator.of(context).pop();
-    switch (index) {
-      case 0:
+
+    if (index == 0) {
+      debugPrint("Navigating to My Account");
+
+      try {
+        // Fetch the profile data before navigating
+        final data = await _profileService.fetchProfileData(); 
+        debugPrint("Profile data received: $data");
+
+        if (context.mounted) {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => MyAccount(profileData: data), // Navigate with the data
+          ));
+        }
+      } catch (error) {
+        debugPrint("Error occurred during API call: $error");
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('An error occurred while fetching data')),
+          );
+        }
+      }
+    } else if (index == 1) {
+      debugPrint("Navigating to Liked Photos page");
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => Scaffold()), // Replace with actual page
+      );
+    }
+    // Add additional cases as needed
+  }
+
+  Future<void> fetchProfileData(BuildContext context) async {
+    try {
+      final data = await _profileService.fetchProfileData(); // Use the ProfileService to fetch data
+
+      debugPrint("Profile data received: $data");
+
+      if (context.mounted) {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Scaffold(), // Page 1
+          builder: (context) => MyAccount(profileData: data), // Pass data to MyAccount screen
         ));
-        break;
-      case 1:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Scaffold(), // Page 2
-        ));
-        break;
+      }
+    } catch (error) {
+      debugPrint("Error occurred during API call: $error");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('An error occurred while fetching data')),
+        );
+      }
     }
   }
 }
