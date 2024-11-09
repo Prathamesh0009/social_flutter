@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/screens/my_account_screen.dart';
 import 'package:social_app/screens/signup_screen.dart';
+import 'package:social_app/screens/welcome_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -16,7 +18,7 @@ class MainApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       
-      home:  SignUp(),
+      home: MyAccount(),
     );
   }
 }
