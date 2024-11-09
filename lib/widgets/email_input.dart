@@ -1,37 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/constants/styles.dart';
 
 class EmailInputField extends StatelessWidget {
-const EmailInputField({Key? key}) : super(key: key);
+  const EmailInputField({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            offset: const Offset(12, 26),
-            blurRadius: 50,
-            spreadRadius: 0,
-            color: Colors.grey.withOpacity(.1)),
-      ]),
       child: TextField(
         onChanged: (value) {
-          //Do something wi
+          // Handle input change
         },
         keyboardType: TextInputType.emailAddress,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
+        style: const TextStyle(fontSize: 14, color: AppColors.subtitleColor),
         decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.email),
+          prefixIcon: const Icon(Icons.email, color: AppColors.subtitleColor),
           filled: true,
+          fillColor: AppColors.cardBackground,
           hintText: 'Enter your email',
-          hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+          hintStyle: TextStyle(color: AppColors.subtitleColor.withOpacity(.75)),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
           border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue, width: 1.0),
+            borderSide: BorderSide(color: AppColors.linkColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue, width: 1.0),
+            borderSide: BorderSide(color: AppColors.linkColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
           errorBorder: const OutlineInputBorder(
@@ -39,7 +35,7 @@ const EmailInputField({Key? key}) : super(key: key);
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue, width: 1.0),
+            borderSide: BorderSide(color: AppColors.linkColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
         ),

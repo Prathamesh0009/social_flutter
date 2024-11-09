@@ -1,6 +1,6 @@
-//button
-
 import 'package:flutter/material.dart';
+import 'package:social_app/screens/welcome_screen.dart';
+// Import the Welcome page file
 
 class MButton extends StatelessWidget {
   final String text;
@@ -31,7 +31,12 @@ class MButton extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
           ),
         ),
-        onPressed: null, // Button is disabled with null onPressed
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Welcome()),
+          );
+        },
         child: Text(
           text,
           style: const TextStyle(color: accentColor, fontSize: 16),
