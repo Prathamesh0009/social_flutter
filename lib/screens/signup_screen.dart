@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/widgets/app_drawer.dart';
-import 'package:social_app/widgets/button.dart';
+import 'package:social_app/widgets/signup_button.dart';
 import 'package:social_app/widgets/email_input.dart';
 import 'package:social_app/widgets/password_input.dart';
 import 'package:social_app/widgets/social_widget.dart';
