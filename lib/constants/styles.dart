@@ -5,6 +5,8 @@ class AppColors {
   static const Color backgroundGradientBottom = Color(0xFF1F3838);
   static const Color cardBackground = Color(0xFF15202B);
   static const Color primaryBackground = Color(0xff4338CA);
+  static const Color primaryColor = Color(0xff4338CA); // Added color
+  static const Color secondaryColor = Color(0xff6D28D9); // Added color
   static const Color titleColor = Colors.white;
   static const Color subtitleColor = Colors.white70;
   static const Color linkColor = Colors.blueAccent;
