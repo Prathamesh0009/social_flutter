@@ -1,26 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/constants/styles.dart';
 
-class ProfileContent extends StatelessWidget {
+class ProfileContent extends StatefulWidget {
+  final Map<String, dynamic> profileData;
+
+  const ProfileContent({Key? key, required this.profileData}) : super(key: key);
+
+  @override
+  _ProfileContentState createState() => _ProfileContentState();
+}
+
+class _ProfileContentState extends State<ProfileContent> {
   @override
   Widget build(BuildContext context) {
+    // Access profile data directly from the widget
+    final data = widget.profileData; // Use widget to access passed profileData
+
+    // Debugging: log profile data
+    debugPrint("Profile data received: $data");
+
     return Container(
       padding: const EdgeInsets.all(15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
-          // Profile Header
+          // Profile Header with dynamic data
           Row(
             children: [
               Container(
                 width: 60,
                 height: 60,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     image: NetworkImage(
-                      "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+                      data['image'] ?? 
+                          "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg", // Default image URL
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -29,19 +45,19 @@ class ProfileContent extends StatelessWidget {
               const SizedBox(width: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
-                    "Micelle Johnathan",
-                    style: TextStyle(
+                    data['name'] ?? "Name Not Available",
+                    style: const TextStyle(
                       color: AppColors.titleColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
-                    "@Micelle_NYC",
-                    style: TextStyle(
+                    data['description'] ?? "No description available",
+                    style: const TextStyle(
                       color: AppColors.subtitleColor,
                       fontSize: 14,
                     ),
@@ -63,37 +79,37 @@ class ProfileContent extends StatelessWidget {
                 MenuItem(
                   text: 'Followers',
                   icon: Icons.people,
-                  value: '2.3k',
+                  value: data['followers']?.toString() ?? '0',
                 ),
                 const Divider(color: AppColors.subtitleColor, thickness: 0.5),
                 MenuItem(
-                  text: 'Likes',
-                  icon: Icons.favorite_border,
-                  value: '1.5k',
+                  text: 'Following',
+                  icon: Icons.person_add,
+                  value: data['following']?.toString() ?? '0',
+                ),
+                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
+                MenuItem(
+                  text: 'Customers',
+                  icon: Icons.people_outline,
+                  value: data['customers']?.toString() ?? '0',
+                ),
+                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
+                MenuItem(
+                  text: 'Products',
+                  icon: Icons.shopping_cart,
+                  value: data['products']?.toString() ?? '0',
+                ),
+                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
+                MenuItem(
+                  text: 'Reviews',
+                  icon: Icons.reviews,
+                  value: data['reviews']?.toString() ?? '0',
                 ),
                 const Divider(color: AppColors.subtitleColor, thickness: 0.5),
                 MenuItem(
                   text: 'Posts',
-                  icon: Icons.workspaces_outline,
-                  value: '342',
-                ),
-                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
-                MenuItem(
-                  text: 'Archives',
-                  icon: Icons.update,
-                  value: '15',
-                ),
-                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
-                MenuItem(
-                  text: 'Notifications',
-                  icon: Icons.notifications_outlined,
-                  value: '8',
-                ),
-                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
-                MenuItem(
-                  text: 'Settings',
-                  icon: Icons.settings,
-                  value: '',
+                  icon: Icons.post_add,
+                  value: data['posts']?.toString() ?? '0',
                 ),
               ],
             ),
@@ -118,6 +134,9 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Debugging: log MenuItem text and value when it is built
+    debugPrint("Building MenuItem: $text with value $value");
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
