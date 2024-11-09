@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       
-      home: MyAccount(),
+      home: SignUp(),
     );
   }
 }
