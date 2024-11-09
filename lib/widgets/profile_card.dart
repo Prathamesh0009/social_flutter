@@ -1,126 +1,145 @@
-
 import 'package:flutter/material.dart';
+import 'package:social_app/constants/styles.dart';
 
-class Profile extends StatelessWidget {
-  final String title;
-  final String body;
-  final Function() onMoreTap;
-
-  final String subInfoTitle;
-  final String subInfoText;
-  final Widget subIcon;
-
-  const Profile(
-      {required this.title,
-      this.body =
-          """Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudi conseqr!""",
-      required this.onMoreTap,
-      this.subIcon = const CircleAvatar(
-        child: Icon(
-          Icons.directions,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.orange,
-        radius: 25,
-      ),
-      this.subInfoText = "545 miles",
-      this.subInfoTitle = "Directions",
-      Key? key})
-      : super(key: key);
-
+class ProfileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(25.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(.05),
-              offset: Offset(0, 10),
-              blurRadius: 0,
-              spreadRadius: 0,
-            )
-          ],
-          gradient: RadialGradient(
-            colors: [Colors.orangeAccent, Colors.orange],
-            focal: Alignment.topCenter,
-            radius: .85,
-          )),
+      padding: const EdgeInsets.all(15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: 20),
+          // Profile Header
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold),
-              ),
               Container(
-                width: 75,
-                height: 30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100.0),
-                  gradient: LinearGradient(
-                      colors: [Colors.white, Colors.white],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter),
+                width: 60,
+                height: 60,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: GestureDetector(
-                  onTap: onMoreTap,
-                  child: Center(
-                      child: Text(
-                    "More",
-                    style: TextStyle(color: Colors.orange),
-                  )),
-                ),
+              ),
+              const SizedBox(width: 15),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Micelle Johnathan",
+                    style: TextStyle(
+                      color: AppColors.titleColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "@Micelle_NYC",
+                    style: TextStyle(
+                      color: AppColors.subtitleColor,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          SizedBox(height: 10),
-          Text(
-            body,
-            style:
-                TextStyle(color: Colors.white.withOpacity(.75), fontSize: 14),
-          ),
-          SizedBox(height: 15),
+          const SizedBox(height: 20),
+          // Menu Section as Vertical List with Values
           Container(
-            width: double.infinity,
-            height: 75,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25.0),
-              color: Colors.white,
+              color: AppColors.cardBackground.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  subIcon,
-                  SizedBox(width: 10),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(subInfoTitle),
-                      Text(
-                        subInfoText,
-                        style: TextStyle(
-                          color: Colors.orange,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              children: [
+                MenuItem(
+                  text: 'Followers',
+                  icon: Icons.people,
+                  value: '2.3k',
+                ),
+                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
+                MenuItem(
+                  text: 'Likes',
+                  icon: Icons.favorite_border,
+                  value: '1.5k',
+                ),
+                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
+                MenuItem(
+                  text: 'Posts',
+                  icon: Icons.workspaces_outline,
+                  value: '342',
+                ),
+                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
+                MenuItem(
+                  text: 'Archives',
+                  icon: Icons.update,
+                  value: '15',
+                ),
+                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
+                MenuItem(
+                  text: 'Notifications',
+                  icon: Icons.notifications_outlined,
+                  value: '8',
+                ),
+                const Divider(color: AppColors.subtitleColor, thickness: 0.5),
+                MenuItem(
+                  text: 'Settings',
+                  icon: Icons.settings,
+                  value: '',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MenuItem extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final String value;
+
+  const MenuItem({
+    required this.text,
+    required this.icon,
+    required this.value,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Icon(icon, color: AppColors.titleColor, size: 28),
+          const SizedBox(width: 15),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: AppColors.titleColor,
+                fontSize: 16,
               ),
             ),
-          )
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              color: AppColors.subtitleColor,
+              fontSize: 14,
+            ),
+          ),
         ],
       ),
     );
