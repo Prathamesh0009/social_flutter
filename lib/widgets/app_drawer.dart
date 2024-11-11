@@ -101,7 +101,7 @@ class SideDrawer extends StatelessWidget {
       try {
         // Fetch the profile data before navigating
         final data = await _profileService.fetchProfileData(); 
-        debugPrint("Profile data received: $data");
+        debugPrint("Profile data received app drawer: $data");
 
         if (context.mounted) {
           Navigator.of(context).push(MaterialPageRoute(
