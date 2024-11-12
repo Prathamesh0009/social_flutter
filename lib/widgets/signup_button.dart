@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/constants/styles.dart';
-import 'package:social_app/screens/welcome_screen.dart';  // Adjust this path to point to AppColors
+import 'package:social_app/screens/welcome_screen.dart';
 
 class MButton extends StatelessWidget {
   final String text;
@@ -14,16 +14,14 @@ class MButton extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
-        gradient: const LinearGradient(
-          colors: [AppColors.primaryColor, AppColors.secondaryColor],
-        ),
+        gradient: AppButtonStyles.buttonGradient, // Use centralized gradient
       ),
       child: ElevatedButton(
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0),
           alignment: Alignment.center,
-          padding: MaterialStateProperty.all(const EdgeInsets.symmetric(
-            horizontal: 75, vertical: 15)),
+          padding: MaterialStateProperty.all(
+              const EdgeInsets.symmetric(horizontal: 75, vertical: 15)),
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
@@ -39,7 +37,7 @@ class MButton extends StatelessWidget {
         },
         child: Text(
           text,
-          style: const TextStyle(color: AppColors.titleColor, fontSize: 16),
+          style: AppButtonStyles.buttonText, // Use centralized button text style
         ),
       ),
     );

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/constants/styles.dart';
 import 'package:social_app/screens/my_account_screen.dart';
-import 'package:social_app/services/profile_service.dart'; // Import ProfileService
+import 'package:social_app/services/profile_service.dart';
 
 class SideDrawer extends StatelessWidget {
-  final ProfileService _profileService = ProfileService(); // Initialize the ProfileService
+  final ProfileService _profileService = ProfileService();
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Material(
-        color: AppColors.backgroundGradientTop,
+        color: AppDrawerStyles.drawerBackgroundColor, // Use centralized color
         child: ListView(
           children: <Widget>[
             Container(
@@ -25,23 +25,17 @@ class SideDrawer extends StatelessWidget {
                       child: AspectRatio(
                         aspectRatio: 1,
                         child: Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(14)),
-                            image: DecorationImage(
-                              image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                          decoration: AppDrawerStyles.profileImageDecoration, // Use centralized decoration
                         ),
                       ),
                     ),
                     title: const Text(
                       "Micelle Johnathan",
-                      style: TextStyle(color: Colors.white),
+                      style: AppDrawerStyles.profileNameTextStyle, // Use centralized text style
                     ),
                     subtitle: const Text(
                       "@Micelle_NYC",
-                      style: TextStyle(color: Colors.white70),
+                      style: AppDrawerStyles.profileSubtitleTextStyle, // Use centralized text style
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -99,13 +93,12 @@ class SideDrawer extends StatelessWidget {
       debugPrint("Navigating to My Account");
 
       try {
-        // Fetch the profile data before navigating
-        final data = await _profileService.fetchProfileData(); 
+        final data = await _profileService.fetchProfileData();
         debugPrint("Profile data received app drawer: $data");
 
         if (context.mounted) {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => MyAccount(profileData: data), // Navigate with the data
+            builder: (context) => MyAccount(profileData: data),
           ));
         }
       } catch (error) {
@@ -122,18 +115,17 @@ class SideDrawer extends StatelessWidget {
         MaterialPageRoute(builder: (context) => Scaffold()), // Replace with actual page
       );
     }
-    // Add additional cases as needed
   }
 
   Future<void> fetchProfileData(BuildContext context) async {
     try {
-      final data = await _profileService.fetchProfileData(); // Use the ProfileService to fetch data
+      final data = await _profileService.fetchProfileData();
 
       debugPrint("Profile data received: $data");
 
       if (context.mounted) {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MyAccount(profileData: data), // Pass data to MyAccount screen
+          builder: (context) => MyAccount(profileData: data),
         ));
       }
     } catch (error) {
@@ -161,13 +153,10 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Colors.white;
-    final hoverColor = Colors.white70;
-
     return ListTile(
-      leading: Icon(icon, color: color),
-      title: Text(text, style: TextStyle(color: color)),
-      hoverColor: hoverColor,
+      leading: Icon(icon, color: AppDrawerStyles.menuItemIconColor), // Use centralized color
+      title: Text(text, style: AppDrawerStyles.menuItemTextStyle), // Use centralized text style
+      hoverColor: Colors.white70,
       onTap: onClicked,
     );
   }
