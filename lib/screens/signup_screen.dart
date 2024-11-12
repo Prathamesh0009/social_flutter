@@ -5,7 +5,6 @@ import 'package:social_app/widgets/email_input.dart';
 import 'package:social_app/widgets/password_input.dart';
 import 'package:social_app/widgets/social_widget.dart';
 import 'package:social_app/constants/styles.dart';
- // Import the styles file
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -46,6 +45,7 @@ class _SignUpState extends State<SignUp> {
                   child: Container(
                     width: 350,
                     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                    decoration: AppButtonStyles.cardDecoration,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +67,7 @@ class _SignUpState extends State<SignUp> {
                             ],
                           ),
                         ),
-                        const Divider(height: 1, color: Colors.white),
+                        AppButtonStyles.dividerStyle, // Using centralized divider style
                         const SizedBox(height: 20),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 7.0),
